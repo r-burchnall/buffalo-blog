@@ -1,6 +1,14 @@
 package models
 
+func mustCleanDatabase(ms *ModelSuite) {
+	err := ms.CleanDB()
+	if err != nil {
+		ms.Fail("Failed to clean database")
+	}
+}
+
 func (ms *ModelSuite) Test_User_Create() {
+	mustCleanDatabase(ms)
 	count, err := ms.DB.Count("users")
 	ms.NoError(err)
 	ms.Equal(0, count)
@@ -24,6 +32,7 @@ func (ms *ModelSuite) Test_User_Create() {
 }
 
 func (ms *ModelSuite) Test_User_Create_ValidationErrors() {
+	mustCleanDatabase(ms)
 	count, err := ms.DB.Count("users")
 	ms.NoError(err)
 	ms.Equal(0, count)
@@ -44,6 +53,7 @@ func (ms *ModelSuite) Test_User_Create_ValidationErrors() {
 }
 
 func (ms *ModelSuite) Test_User_Create_UserExists() {
+	mustCleanDatabase(ms)
 	count, err := ms.DB.Count("users")
 	ms.NoError(err)
 	ms.Equal(0, count)

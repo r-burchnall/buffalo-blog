@@ -18,7 +18,7 @@ var _ = grift.Namespace("db", func() {
 
 		err := models.DB.Create(defaultUser)
 		if err != nil {
-			log.Fatalln("Failed to create user in database")
+			log.Fatalf("failed to create user in database, %v", err)
 		}
 
 		return nil

@@ -2,9 +2,15 @@ package actions
 
 import (
 	"net/http"
-
 	"social_api/models"
 )
+
+func mustCleanDatabase(as *ActionSuite) {
+	err := as.CleanDB()
+	if err != nil {
+		as.Failf("Failed to clean database", "", err)
+	}
+}
 
 func (as *ActionSuite) createUser() (*models.User, error) {
 	u := &models.User{
@@ -14,7 +20,9 @@ func (as *ActionSuite) createUser() (*models.User, error) {
 	}
 
 	verrs, err := u.Create(as.DB)
-	as.False(verrs.HasAny())
+	if verrs.HasAny() {
+		as.Failf("was expecting no validation errors %v", verrs.String())
+	}
 
 	return u, err
 }
@@ -32,6 +40,7 @@ func (as *ActionSuite) Test_Auth_New() {
 }
 
 func (as *ActionSuite) Test_Auth_Create() {
+	mustCleanDatabase(as)
 	u, err := as.createUser()
 	as.NoError(err)
 
@@ -62,6 +71,7 @@ func (as *ActionSuite) Test_Auth_Create() {
 }
 
 func (as *ActionSuite) Test_Auth_Redirect() {
+	mustCleanDatabase(as)
 	u, err := as.createUser()
 	as.NoError(err)
 
