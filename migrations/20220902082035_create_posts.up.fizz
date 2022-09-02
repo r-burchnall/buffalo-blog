@@ -1,0 +1,6 @@
+create_table("posts") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("title", "text", {null: true})
+	t.Column("content", "text", {})
+	t.Timestamps()
+}

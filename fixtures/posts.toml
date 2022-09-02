@@ -1,0 +1,18 @@
+[[scenario]]
+name = "lots of posts"
+
+  [[scenario.table]]
+    name = "posts"
+
+    [[scenario.table.row]]
+      id = "<%= uuid() %>"
+      title = "a post with a title!"
+      content = "and some content here"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+
+    [[scenario.table.row]]
+      id = "<%= uuid() %>"
+      content = "this post doesn't have a title"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
