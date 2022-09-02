@@ -2,17 +2,30 @@
 name = "lots of posts"
 
   [[scenario.table]]
+    name = "feeds"
+
+    [[scenario.table.row]]
+      id = "<%= uuidNamed("feed") %>"
+      name = "My First Feed"
+      type = 1
+      description = "some description"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+
+  [[scenario.table]]
     name = "posts"
 
     [[scenario.table.row]]
       id = "<%= uuid() %>"
       title = "a post with a title!"
       content = "and some content here"
+      feed_id = "<%= uuidNamed("feed") %>"
       created_at = "<%= now() %>"
       updated_at = "<%= now() %>"
 
     [[scenario.table.row]]
       id = "<%= uuid() %>"
       content = "this post doesn't have a title"
+      feed_id = "<%= uuidNamed("feed") %>"
       created_at = "<%= now() %>"
       updated_at = "<%= now() %>"

@@ -1,0 +1,3 @@
+drop_foreign_key("posts", "post_feed_fk", {"if_exists": true})
+
+drop_table("feeds")

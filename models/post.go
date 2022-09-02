@@ -2,8 +2,9 @@ package models
 
 import (
 	"encoding/json"
-	"github.com/gobuffalo/validate/v3/validators"
 	"time"
+
+	"github.com/gobuffalo/validate/v3/validators"
 
 	"github.com/gobuffalo/nulls"
 	"github.com/gobuffalo/pop/v6"
@@ -16,6 +17,8 @@ type Post struct {
 	ID        uuid.UUID    `json:"id" db:"id"`
 	Title     nulls.String `json:"title" db:"title"`
 	Content   string       `json:"content" db:"content"`
+	Feed      Feed         `json:"feed" belongs_to:"feed"`
+	FeedID    uuid.UUID    `json:"feed-id" db:"feed_id"`
 	CreatedAt time.Time    `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time    `json:"updated_at" db:"updated_at"`
 }

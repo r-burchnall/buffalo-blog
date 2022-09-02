@@ -42,12 +42,22 @@ func (as *ActionSuite) Test_PostsResource_Show() {
 }
 
 func (as *ActionSuite) Test_PostsResource_Create() {
+	feed := models.Feed{
+		Name: "example feed",
+		Type: models.UserProfileFeed,
+	}
+	err := as.DB.Create(&feed)
+	if err != nil {
+		as.Fail("failed to create required feed")
+	}
+
 	as.Run("create a valid post", func() {
 		newPost := models.Post{
 			Content: "this is some content",
+			FeedID:  feed.ID,
 		}
 		response := as.JSON("/posts").Post(&newPost)
-		as.Equal(response.Code, http.StatusCreated)
+		as.Equal(response.Code, http.StatusCreated, "Unexpected response %s", response.Body.String())
 	})
 
 	as.Run("return validation errors for an invalid post", func() {

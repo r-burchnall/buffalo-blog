@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/gobuffalo/validate/v3"
 	"testing"
+
+	"github.com/gobuffalo/validate/v3"
 )
 
 func assertNoValidationErrors(t *testing.T, got *validate.Errors) {

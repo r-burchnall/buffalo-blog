@@ -1,0 +1,15 @@
+create_table("feeds") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("type", "int", {})
+	t.Column("name", "string", {})
+	t.Column("description", "string", {null: true})
+	t.Timestamps()
+}
+
+add_column("posts", "feed_id", "uuid", {})
+
+add_foreign_key("posts", "feed_id", {"feeds": ["id"]}, {
+    "name": "post_feed_fk",
+    "on_delete": "CASCADE",
+    "on_update": "CASCADE",
+})
