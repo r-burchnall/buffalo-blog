@@ -62,9 +62,24 @@ func App() *buffalo.App {
 		//   c.Value("tx").(*pop.Connection)
 		// Remove to disable this.
 		app.Use(popmw.Transaction(models.DB))
-		app.GET("/", HomeHandler)
+		app.GET("/health", HomeHandler)
 		app.Resource("/posts", PostsResource{})
 		app.Resource("/feeds", FeedsResource{})
+		//AuthMiddlewares
+		app.Use(SetCurrentUser)
+		app.Use(Authorize)
+
+		//Routes for Auth
+		auth := app.Group("/auth")
+		auth.POST("/", AuthCreate)
+		auth.DELETE("/", AuthDestroy)
+		auth.Middleware.Skip(Authorize, AuthCreate)
+
+		//Routes for User registration
+		users := app.Group("/users")
+		users.POST("/", UsersCreate)
+		users.Middleware.Remove(Authorize)
+
 	}
 
 	return app

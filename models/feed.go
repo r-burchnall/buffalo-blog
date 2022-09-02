@@ -2,8 +2,9 @@ package models
 
 import (
 	"encoding/json"
-	"github.com/gobuffalo/nulls"
 	"time"
+
+	"github.com/gobuffalo/nulls"
 
 	"github.com/gobuffalo/pop/v6"
 	"github.com/gobuffalo/validate/v3"
